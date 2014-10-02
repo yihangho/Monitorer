@@ -1,14 +1,28 @@
-<ul>
-  <% @sites.each do |site| %>
-    <li>
-      <% if site.title.to_s.empty? %>
-        <%= link_to site.url, site.url %>
-      <% else %>
-        <%= link_to site.title, site.url %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <th>Site</th>
+    <th>Status code</th>
+    <th>Load time</th>
+    <td>Last polling time</td>
+  </thead>
+  <tbody>
+    <% @sites.each do |site| %>
+      <tr>
+        <td>
+          <% if site.title.to_s.empty? %>
+            <%= link_to site.url, site.url %>
+          <% else %>
+            <%= link_to site.title, site.url %>
+          <% end %>
+        </td>
+
+        <td><%= site.latest_poll.status_code %></td>
+        <td><%= site.latest_poll.load_time %></td>
+        <td><%= site.latest_poll.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= form_for(:site) do |f| %>
   <div class="form-group">
